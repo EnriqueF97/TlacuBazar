@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { User, UserAddress } from '../models';
+import { User, UserAddress, Product } from '../models';
 import {
   AuthService,
   SocialUser,
@@ -18,7 +18,20 @@ export class ManagerService {
   socialUser: SocialUser;
   userAddress: UserAddress[];
   updateUserAddress = new Subject<number>();
+  cart: any[];
+
+  get cartLength() {
+    let length = 0;
+
+    this.cart.forEach(p => {
+      length += p.count;
+    });
+
+    return length;
+  }
+
   constructor() {
+    this.cart = Array();
     this.getTokenItems();
   }
 
@@ -39,6 +52,7 @@ export class ManagerService {
       localStorage.setItem('tlacu-user', null);
       localStorage.setItem('tlacu-social-user', null);
   }
+
   getTokenItems() {
     try {
         this.user = JSON.parse(localStorage.getItem('tlacu-user'));
@@ -51,4 +65,55 @@ export class ManagerService {
     }
   }
 
+  addToCart(product: Product): boolean {
+    let productTemp = null;
+
+    for (const cartProduct of this.cart) {
+      if (cartProduct.cartProductId === product.idProduct) {
+        productTemp = cartProduct;
+        break;
+      }
+    }
+
+    if (!productTemp) {
+      productTemp = {
+        cartProductId: product.idProduct,
+        product,
+        count: 0,
+        totalBuyPrice: 0,
+        totalMaxCacaoBuyPrice: 0
+      };
+
+      this.cart.push(productTemp);
+    }
+
+    productTemp.count++;
+    productTemp.totalBuyPrice += product.buyPrice;
+    productTemp.totalMaxCacaoBuyPrice += product.maxCacaoBuyPrice;
+
+    return true;
+  }
+
+  removeFromCart(product: Product): boolean {
+    let productTemp = null;
+
+    for (const cartProduct of this.cart) {
+      if (cartProduct.cartProductId === product.idProduct) {
+        productTemp = cartProduct;
+        break;
+      }
+    }
+
+    if (!productTemp) {
+      return false;
+    } else if (productTemp.count === 1) {
+      this.cart = this.cart.filter(p => p.cartProductId !== productTemp.cartProductId);
+    }
+
+    productTemp.count--;
+    productTemp.totalBuyPrice -= product.buyPrice;
+    productTemp.totalMaxCacaoBuyPrice -= product.maxCacaoBuyPrice;
+
+    return true;
+  }
 }

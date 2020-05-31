@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +34,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ManageStoreComponent } from './components/manage-store/manage-store.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CreateAddressComponent } from './components/create-address/create-address.component';
+import { ToastsContainerComponent } from './components/toasts-container/toasts-container.component';
 
 const config = new AuthServiceConfig([
   {
@@ -66,7 +68,9 @@ export function provideConfig() {
     ClientCourseComponent,
     VendorCourseComponent,
     ProfileComponent,
-    ManageStoreComponent
+    ManageStoreComponent,
+    CreateAddressComponent,
+    ToastsContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +79,8 @@ export function provideConfig() {
     BrowserAnimationsModule,
     FontAwesomeModule,
     SocialLoginModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [
     UserService,

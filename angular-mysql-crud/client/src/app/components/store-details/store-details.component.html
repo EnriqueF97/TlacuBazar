@@ -47,8 +47,18 @@
               <td *ngIf="product.quantityInStock <= 0" style="color: red;">AGOTADO</td>
               <td>${{product.buyPrice}}</td>
               <td *ngIf="store.acceptsCacao">${{product.maxCacaoBuyPrice}}</td>
-              <td><a class="btn btn-link"><fa-icon [icon]="faPlusSquare"></fa-icon></a>
-                <a class="btn btn-link"><fa-icon [icon]="faMinusSquare"></fa-icon></a></td>
+              <td>
+                <a
+                  (click)="addProductToCart(product)"
+                  class="btn btn-link">
+                  <fa-icon [icon]="faPlusSquare"></fa-icon>
+                </a>
+                <a
+                  (click)="removeProductFromCart(product)"
+                  class="btn btn-link">
+                  <fa-icon [icon]="faMinusSquare"></fa-icon>
+                </a>
+              </td>
             </tr>
           </tbody>
         </table>

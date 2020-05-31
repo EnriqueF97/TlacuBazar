@@ -123,4 +123,30 @@ export class StoreDetailsComponent implements OnInit {
     });
 
   }
+
+  addProductToCart(product: Product) {
+    const added = this.tlacu.manager.addToCart(product);
+    if (added) {
+      this.tlacu.toastService.show(
+        `${product.name} se agregó al carrito.`,
+        {
+          classname: 'bg-success text-light',
+          delay: 5000
+        }
+      );
+    }
+  }
+
+  removeProductFromCart(product: Product) {
+    const removed = this.tlacu.manager.removeFromCart(product);
+    if (removed) {
+      this.tlacu.toastService.show(
+        `${product.name} se quitó de tu carrito.`,
+        {
+          classname: 'bg-info text-light',
+          delay: 5000
+        }
+      );
+    }
+  }
 }
