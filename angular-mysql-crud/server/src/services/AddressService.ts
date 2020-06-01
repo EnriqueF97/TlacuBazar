@@ -15,31 +15,44 @@ export class AddressService {
         return recordset;
     }
 
-    static async getAddress(idAddress?:number): Promise<Address[]>  {
-        let sql: string = "SELECT * FROM address WHERE "
-        sql += idAddress!=null ? "idAddress = " + idAddress + " AND " : "";
+    static async getAddress(idAddress?: number): Promise<Address[]>  {
+        let sql: string = "SELECT * FROM address WHERE ";
+        sql += idAddress != null ? "idAddress = " + idAddress + " AND " : "";
         sql += "1 = 1 ";
         const recordset = await pool.query(sql);
         return recordset;
     }
 
     static async createAddress(address: Address): Promise<any> {
-        let sql: string = "INSERT INTO address (fkAddressEnum, fkStateEnum, fkCityEnum, fkSuburbEnum) " + 
-                                "VALUES ('"+ address.fkAddressEnum + "', '" + 
-                                            address.fkStateEnum +"', '" + 
-                                            address.fkCityEnum + "', '" + 
-                                            address.fkSuburbEnum + "');"
-        const resultado= await pool.query(sql);
+        let resultado = null;
+        
+        let sql: string = 
+            `INSERT INTO address (fkAddressEnum, fkStateEnum, fkCityEnum, fkSuburbEnum)
+            VALUES (
+                ${address.fkAddressEnum}, 
+                ${address.fkStateEnum}, 
+                ${address.fkCityEnum},
+                ${address.fkSuburbEnum}
+            );`;
+
+        try {
+            resultado = await pool.query(sql);
+        } catch (error) {
+            console.error('AddressService: error at createAddress.');
+            console.error(error);
+        }
+
         return resultado;
     }
 
     static async updateAddress(idAddress: number, address: Address): Promise<any> {
-        let sql: string = "UPDATE address SET " +
-                                "fkAddressEnum = '" + address.fkAddressEnum+"', " +  
-                                "fkStateEnum = '" + address.fkStateEnum + "', " +
-                                "fkCityEnum = '" + address.fkCityEnum +"', " + 
-                                "fkSuburbEnum = " + address.fkSuburbEnum + " " +
-                                "WHERE idAddress = " + idAddress + ";";
+        let sql: string = 
+            `UPDATE address SET
+            fkAddressEnum = ${address.fkAddressEnum} 
+            fkStateEnum = ${address.fkStateEnum} 
+            fkCityEnum = ${address.fkCityEnum} 
+            fkSuburbEnum = ${address.fkSuburbEnum} 
+            WHERE idAddress = ${idAddress};`;
         const resultado= await pool.query(sql);
         return resultado;
     }

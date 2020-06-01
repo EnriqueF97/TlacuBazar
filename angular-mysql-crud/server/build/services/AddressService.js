@@ -38,23 +38,32 @@ class AddressService {
     }
     static createAddress(address) {
         return __awaiter(this, void 0, void 0, function* () {
-            let sql = "INSERT INTO address (fkAddressEnum, fkStateEnum, fkCityEnum, fkSuburbEnum) " +
-                "VALUES ('" + address.fkAddressEnum + "', '" +
-                address.fkStateEnum + "', '" +
-                address.fkCityEnum + "', '" +
-                address.fkSuburbEnum + "');";
-            const resultado = yield database_1.default.query(sql);
+            let resultado = null;
+            let sql = `INSERT INTO address (fkAddressEnum, fkStateEnum, fkCityEnum, fkSuburbEnum)
+            VALUES (
+                ${address.fkAddressEnum}, 
+                ${address.fkStateEnum}, 
+                ${address.fkCityEnum},
+                ${address.fkSuburbEnum}
+            );`;
+            try {
+                resultado = yield database_1.default.query(sql);
+            }
+            catch (error) {
+                console.error('AddressService: error at createAddress.');
+                console.error(error);
+            }
             return resultado;
         });
     }
     static updateAddress(idAddress, address) {
         return __awaiter(this, void 0, void 0, function* () {
-            let sql = "UPDATE address SET " +
-                "fkAddressEnum = '" + address.fkAddressEnum + "', " +
-                "fkStateEnum = '" + address.fkStateEnum + "', " +
-                "fkCityEnum = '" + address.fkCityEnum + "', " +
-                "fkSuburbEnum = " + address.fkSuburbEnum + " " +
-                "WHERE idAddress = " + idAddress + ";";
+            let sql = `UPDATE address SET
+            fkAddressEnum = ${address.fkAddressEnum} 
+            fkStateEnum = ${address.fkStateEnum} 
+            fkCityEnum = ${address.fkCityEnum} 
+            fkSuburbEnum = ${address.fkSuburbEnum} 
+            WHERE idAddress = ${idAddress};`;
             const resultado = yield database_1.default.query(sql);
             return resultado;
         });

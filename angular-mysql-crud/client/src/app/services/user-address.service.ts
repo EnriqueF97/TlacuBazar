@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
 })
 export class UserAddressService {
   public defaultHeaders = new HttpHeaders();
-  API_URL = 'http://localhost:3000';
+  API_URL = 'http://localhost:3000/userAddress';
 
   constructor(private http: HttpClient) { }
 
@@ -29,7 +29,7 @@ export class UserAddressService {
     headers = headers.set('Content-Type', 'application/json');
 
     // Request
-    return this.http.get<UserAddress[]>(`${this.API_URL}/userAddress`, { params, headers });
+    return this.http.get<UserAddress[]>(`${this.API_URL}`, { params, headers });
   }
 
   public getUserAddress(idUserAddress: number): Observable<any> {
@@ -39,7 +39,7 @@ export class UserAddressService {
     headers = headers.set('Content-Type', 'application/json');
 
     // Request
-    return this.http.get<UserAddress[]>(`${this.API_URL}/userAddress//${idUserAddress}`, { headers });
+    return this.http.get<UserAddress[]>(`${this.API_URL}/${idUserAddress}`, { headers });
   }
 
   public createUserAddress(userAddress: UserAddress): Observable<any> {
@@ -51,7 +51,7 @@ export class UserAddressService {
 
 
     // Request
-    return  this.http.post<UserAddress>(`${this.API_URL}/userAddress`, userAddress, { headers } );
+    return  this.http.post<UserAddress>(`${this.API_URL}`, userAddress, { headers } );
   }
 
   public updateUserAddress(idUserAddress: number, userAddress: UserAddress): Observable<any> {
@@ -61,7 +61,7 @@ export class UserAddressService {
     headers = headers.set('Content-Type', 'application/json');
 
     // Request
-    return this.http.put<UserAddress>(`${this.API_URL}/userAddress/${idUserAddress}`, userAddress,  { headers } );
+    return this.http.put<UserAddress>(`${this.API_URL}/${idUserAddress}`, userAddress,  { headers } );
   }
 
   public deleteUserAddress(fkAddress: number, fkUser: number): Observable<any> {
@@ -72,7 +72,7 @@ export class UserAddressService {
 
 
     // Request
-    return this.http.delete(`${this.API_URL}/userAddress/${fkAddress}/${fkUser}`, { headers } );
+    return this.http.delete(`${this.API_URL}/${fkAddress}/${fkUser}`, { headers } );
 
   }
 }

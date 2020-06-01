@@ -45,9 +45,7 @@ export class AddressEnumService {
     return this.http.post<AddressEnum>(`${this.API_URL}`, addressEnum, { headers });
   }
 
-  public updateAddressEnum(
-    idAddressEnum: number, addressEnum: AddressEnum
-  ): Observable<any> {
+  public updateAddressEnum(idAddressEnum: number, addressEnum: AddressEnum): Observable<any> {
     let headers = this.defaultHeaders;
     headers = headers.set('Accept', 'application/json');
     headers = headers.set('Content-Type', 'application/json');

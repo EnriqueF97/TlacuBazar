@@ -125,7 +125,7 @@ export class ProfileComponent implements OnInit {
   }
 
   setAddressEnum(address: Address) {
-    this.tlacu.adressEnum.getAddressEnum(address.fkAddressEnum).subscribe( res => {
+    this.tlacu.addressEnum.getAddressEnum(address.fkAddressEnum).subscribe( res => {
       address.addressEnum = new AddressEnum(res.recordset[0]);
     });
   }
@@ -180,8 +180,8 @@ export class ProfileComponent implements OnInit {
         });
       }
     });
-    this.suburbArray = suburbArrayTemp;
 
+    this.suburbArray = suburbArrayTemp;
   }
 
   getCp() {
@@ -190,37 +190,57 @@ export class ProfileComponent implements OnInit {
       this.cp = sub.postalCode;
     });
   }
-// -------------- BUTTONS ------------------
+
+  /* -------------- BUTTONS ------------------ */
   public editStore(idStore: number) {
     console.log('Editando tienda ' + idStore);
   }
+
   public deleteStore(idStore: number) {
     console.log('Eliminando tienda ' + idStore);
   }
+
+  /**
+   * Deletes an user address and tries to update the view list
+   * containing them.
+   * @param userAddress the UserAddress object to be deteled.
+   */
   public deleteUserAddress(userAddress: UserAddress) {
-    console.log('Eliminando user address'); // console.log(userAddress);
-    if (this.tlacu.manager.user.fkAddress != null && this.tlacu.manager.user.fkAddress === userAddress.fkAddress) {
+    if (
+      this.tlacu.manager.user.fkAddress != null &&
+      this.tlacu.manager.user.fkAddress === userAddress.fkAddress
+    ) {
       this.tlacu.manager.user.fkAddress = null;
     }
-    this.tlacu.userAddress.deleteUserAddress(userAddress.fkAddress, userAddress.fkUser).subscribe( res => {
-      console.log(res);
-      this.getUserAddresses();
-      this.tlacu.manager.updateUserAddress.next(1);
-    }, err => { console.log(err); });
 
+    this.tlacu.userAddress
+    .deleteUserAddress(userAddress.fkAddress, userAddress.fkUser)
+    .subscribe(
+      response => {
+        this.getUserAddresses();
+        this.tlacu.manager.updateUserAddress.next(1);
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 
-  editInfo() {}
+  addPhone(user: User) { }
 
+  /**
+   * Returns an NgbModalRef, which contains a promise in its
+   * .result attribute, which is solver when the NgbModalRef closes.
+   *
+   * Get all the new user addresses after closing.
+   */
   openCreateAddressModal() {
-    /**
-     * Returns an NgbModalRef, which contains a promise in its
-     * .result attribute, which is solver when the NgbModalRef closes.
-     *
-     * Get all the new user addresses after closing.
-     */
     this.modalService.open(CreateAddressComponent)
     .result
-    .then(() => this.getUserAddresses);
+    .then(() => {
+      console.log('ProfileComponent: Address creation was completed, updating addresses.');
+      this.getUserAddresses();
+      this.tlacu.manager.updateUserAddress.next(1);
+    });
   }
 }
