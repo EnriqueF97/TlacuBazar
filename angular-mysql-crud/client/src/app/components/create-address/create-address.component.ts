@@ -155,9 +155,9 @@ export class CreateAddressComponent {
    * database in order, satisfying table constraints.
    */
   submit() {
-    console.log('Creating UserAddress.');
-    console.log(this.form);
-
+    /* If this.form is valid, all form controls are storable in the database,
+      and if this.postalCode, is not null, then its value was validly set from
+      the database. */
     if (!this.form.valid) {
       this.form.setErrors({
         invalidForm: true
@@ -165,36 +165,34 @@ export class CreateAddressComponent {
       return;
     }
 
-    /* If this.form is valid, all form controls are valid and storable in the database. */
+    /* If this.postalCode, is not null, then its value was validly set from
+      the database. */
     if (this.postalCode != null) {
-      this.createAddressEnum()
-      .then(idAddressEnum => this.createAddress(idAddressEnum))
-      .then(idAddress => this.createUserAddress(idAddress));
+      this.createAddressEnum();
     }
 
     this.activeModal.close();
   }
 
-  async createAddressEnum(): Promise<number> {
+  createAddressEnum() {
     /* Create AddresEnum object. */
-    const addressEnum = new AddressEnum({address: this.streetForm.value });
+    const addressEnum = new AddressEnum({ address: this.streetForm.value });
 
-    /**
-     * Create this AddressEnum in the database and subscribe to handle the response.
-     * Return inserted id in table AddressEnum.
-     */
-    this.tlacu.adressEnum.createAddressEnum(addressEnum).subscribe(response => {
+    /* Create this AddressEnum in the database and subscribe to handle the response.
+      Get inserted id in table AddressEnum from response. */
+    this.tlacu.addressEnum.createAddressEnum(addressEnum).subscribe(response => {
       if (response.success) {
         const idAddressEnum: number = response.createdAddressEnum.insertId;
-        return idAddressEnum;
+        this.createAddress(idAddressEnum);
+      } else {
+        console.error('Error inserting AddressEnum.');
+        console.error(response);
       }
     });
-
-    return null;
   }
 
-  async createAddress(idAddressEnum: number): Promise<number> {
-    /* create Address object. */
+  createAddress(idAddressEnum: number) {
+    /* Create Address object. */
     const address = new Address({
       fkAddressEnum: idAddressEnum,
       fkStateEnum: this.stateForm.value,
@@ -202,33 +200,31 @@ export class CreateAddressComponent {
       fkSuburbEnum: this.suburbForm.value
     });
 
-    /**
-     * Create this Address in the database and subscribe to handle the response.
-     * Return inserted id in table Address.
-     */
+    /* Create this Address in the database and subscribe to handle the response.
+      Get inserted id in table Address from response. */
     this.tlacu.address.createAddress(address).subscribe(response => {
       if (response.success) {
         const idAddress: number = response.createdAddress.insertId;
-        return idAddress;
+        this.createUserAddress(idAddress);
+      } else {
+        console.error('Error inserting Address.');
+        console.error(response);
       }
     });
-
-    return null;
   }
 
-  async createUserAddress(idAddress: number) {
+  createUserAddress(idAddress: number) {
     /* Create UserAddress object. */
     const userAddress = new UserAddress({
       fkUser: this.tlacu.manager.user.idUser,
       fkAddress: idAddress
     });
 
-    /**
-     * Create this UserAddress in the database and subscribe to handle the response.
-     */
+    /* Create this UserAddress in the database and subscribe to handle the response. */
     this.tlacu.userAddress.createUserAddress(userAddress).subscribe(response => {
-      if (response.success) {
-        this.tlacu.manager.updateUserAddress.next(1);
+      if (!response.success) {
+        console.error('Error inserting UserAddress.');
+        console.error(response);
       }
     });
   }
