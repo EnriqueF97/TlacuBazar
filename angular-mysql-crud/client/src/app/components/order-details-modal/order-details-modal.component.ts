@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {TlacuServices} from '../../services/index';
+import { faEdit, faTrashAlt, faPlusSquare, faMinusSquare } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-order-details-modal',
@@ -9,7 +10,10 @@ import {TlacuServices} from '../../services/index';
 })
 export class OrderDetailsModalComponent implements OnInit {
 
-  constructor(public  activeModal: NgbActiveModal) { }
+  faPlusSquare = faPlusSquare;
+  faMinusSquare = faMinusSquare;
+
+  constructor(public  activeModal: NgbActiveModal, public tlacuServices: TlacuServices) { }
 
   ngOnInit(): void {
   }

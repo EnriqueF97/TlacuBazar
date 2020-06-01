@@ -5,7 +5,13 @@
     <div class="card text-center bg-light text-dark">
       <div class="card-header">
         <h4 class="card-title text-center">{{store.name}}</h4>
-        <h5 style="font-size: small;">Ofrece productos en {{store.categoryEnum.category}}</h5>
+        <div *ngIf="store.isServiceStore; then servicesDesc else productsDesc"></div>
+          <ng-template #servicesDesc>
+            <h5 style="font-size: small;" *ngIf="store.isServiceStore; else productsDesc">Ofrece servicios en {{store.categoryEnum.category}}</h5>
+          </ng-template>
+          <ng-template #productsDesc>
+            <h5 style="font-size: small;">Ofrece productos en {{store.categoryEnum.category}}</h5>
+          </ng-template>
         <!--Servicio y cacao icon-->
         <div *ngIf="store.acceptsCacao" class="cursor-hand">
           <span >Acepta cacao</span><img src="../../../assets/images/vegetariano.png" alt="cacao img" class="inline-block ml-2">
@@ -13,22 +19,33 @@
         </div >
       </div>
       <div class="card-body">
-        <h5 class="card-title">Teléfono:</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{store.phone}}77717770435</h6>
-        <h5 class="card-title">Sitio web:</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{store.link}}www.tlacubazar.com</h6>
         <h5 class="card-title">Representante:</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{store.vendor.firstName}} {{store.vendor.lastName}}</h6>
+        <h5 class="card-title">Descripcion:</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{store.description}}</h6>
+        <h5 class="card-title">Telefono:</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{store.vendor.phone}}</h6>
       </div>
     </div>
   </div>
   <div class="col-9">
     <div class="card text-center bg-light text-dark">
       <div class="card-header">
-        <h4 class="card-title text-center">Lista de productos</h4>
+        <div *ngIf="store.isServiceStore; then servicesHeader else productsHeader"></div>
+          <ng-template #servicesHeader>
+            <h4 class="card-title text-center">Descripcion de servicios</h4>
+          </ng-template>
+          <ng-template #productsHeader>
+            <h4 class="card-title text-center">Lista de productos</h4>
+          </ng-template>
       </div>
       <div class="card-body">
-        <table class="table table-striped">
+        <div *ngIf="store.isServiceStore; then servicesCompleteDesc else productsTable"></div>
+        <ng-template #servicesCompleteDesc>
+          <h5 class="card-title">{{store.description}}</h5>
+        </ng-template>
+        <ng-template #productsTable>
+          <table class="table table-striped">
           <thead>
           <tr>
             <th scope="col">Nombre</th>
@@ -61,7 +78,8 @@
               </td>
             </tr>
           </tbody>
-        </table>
+          </table>
+        </ng-template>
       </div>
   </div>
 </div>

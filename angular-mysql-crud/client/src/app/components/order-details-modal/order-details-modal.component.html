@@ -38,7 +38,7 @@
         </div>
         <div class="card-body">
           <h5 class="card-title">Monto total</h5>
-          <h6 class="card-subtitle mb-2 text-muted">$51.90</h6>
+          <h6 class="card-subtitle mb-2 text-muted">{{tlacuServices.manager.cartTotalBuyPrice}}</h6>
           <button>Confirmar compra</button>
         </div>
       </div>
@@ -64,12 +64,23 @@
             </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="productSelect">Manzana roja</td>
-                <td>Fruta manzana roja</td>
-                <td>3</td>
-                <td>$10.50</td>
-                <td>+ -</td>
+              <tr *ngFor="let cartProduct of this.tlacuServices.manager.cart">
+                <td class="productSelect">{{cartProduct.product.name}}</td>
+                <td>{{cartProduct.product.description}}</td>
+                <td>{{cartProduct.count}}</td>
+                <td>{{cartProduct.totalBuyPrice}}</td>
+                <td>
+                  <a
+                    (click)="tlacuServices.manager.removeFromCart(cartProduct.product)"
+                    class="btn btn-link">
+                    <fa-icon [icon]="faMinusSquare"></fa-icon>
+                  </a>
+                  <a
+                    (click)="tlacuServices.manager.addToCart(cartProduct.product)"
+                    class="btn btn-link">
+                    <fa-icon [icon]="faPlusSquare"></fa-icon>
+                  </a>
+                </td>
               </tr>
             </tbody>
           </table>

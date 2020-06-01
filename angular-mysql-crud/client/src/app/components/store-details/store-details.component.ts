@@ -28,10 +28,11 @@ export class StoreDetailsComponent implements OnInit {
   constructor(private tlacu: TlacuServices, private router: Router,  private activatedRoute: ActivatedRoute ) {
     this.user = this.tlacu.manager.user;
     const idStore = +this.activatedRoute.snapshot.paramMap.get('idStore');
+    console.log('Este es el idStore: ' + idStore);
     // get store
     this.getStoreDetails(idStore);
     // get dtore products
-    this.getProducts();
+    this.getProducts(idStore);
   }
 
   ngOnInit(): void {
@@ -55,6 +56,7 @@ export class StoreDetailsComponent implements OnInit {
   goProduct(idProduct: number) {
     this.router.navigate([`/product/${idProduct}`]);
   }
+
 
   // async setStoreAddress(store: Store){
   //  const address = await this.tlacu.address.getAddress(this.store.fkAddress).toPromise;
@@ -98,18 +100,18 @@ export class StoreDetailsComponent implements OnInit {
     }
   }
 
-
-  async getProducts() {
-    const productsRes = await this.tlacu.product.listProduct(null, this.store.idStore, null).toPromise();
+  async getProducts(idStore: number) {
+    const productsRes = await this.tlacu.product.listProduct(null, idStore, null).toPromise();
+    console.log('idStore dentro de getProducts: ' + idStore);
     if (productsRes.length > 0) {
       console.log(productsRes.length + ' products');
       productsRes.recordset.forEach( product => {
-        const prod = new Product(product);
-        // set category
-        this.setProductCategory(prod);
-        // push it into the array
-        this.products.push(prod);
-    });
+          const prod = new Product(product);
+          // set category
+          this.setProductCategory(prod);
+          // push it into the array
+          this.products.push(prod);
+      });
       console.log(this.products);
     } else {
       console.log('no products');

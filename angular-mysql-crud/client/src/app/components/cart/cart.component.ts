@@ -17,8 +17,8 @@ export class CartComponent implements OnInit {
   socialUser: SocialUser = null;
   cartProducts = 0;
 
-  constructor( private tlacu: TlacuServices, private router: Router,
-    private modalService: NgbModal, private config: NgbModalConfig) {
+  constructor( public tlacu: TlacuServices, private router: Router,
+    public modalService: NgbModal, private config: NgbModalConfig) {
     this.user = this.tlacu.manager.user;
     this.socialUser = this.tlacu.manager.socialUser;
     if (this.user != null) {
@@ -46,5 +46,9 @@ export class CartComponent implements OnInit {
 
   login() {
     this.router.navigate(['/login']);
+  }
+
+  mostrarOrderDetails(){
+    this.modalService.open(OrderDetailsModalComponent, { size: 'lg' });
   }
 }

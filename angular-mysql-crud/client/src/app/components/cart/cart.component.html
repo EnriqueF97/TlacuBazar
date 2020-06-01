@@ -1,41 +1,34 @@
 
 <!--User logged in and products in cart-->
-<div *ngIf="user !== null && cartProducts >= 1 " class="row justify-content-md-center">
+<div *ngIf="tlacu.manager.cartLength > 0 " class="row justify-content-md-center">
   <div class="col flex-column justify-content-center center-vertically">
-    <h3>Su carrito</h3>
-  </div>
-</div>
-
-<!--No user loged in-->
-<div *ngIf="user == null" class="row justify-content-md-center contenedor-cart">
-  <div class="col flex-column justify-content-center center-vertically">
-    <h3>Oops, su carrito de TlacuBazar esta vacio.</h3>
-    <img src="../../../assets/images/tlacu-cart.png" alt="imagen de tlacu" width="60%">
-    <button type="button" class="btn" (click)="login()">Iniciar sesión en tu cuenta</button>
-  </div>
-</div>
-
-<!--User logged in but No products in cart-->
-<div *ngIf="user !== null && cartProducts <= 0" class="row justify-content-md-center contenedor-cart">
-  <div class="col flex-column justify-content-center center-vertically">
-    <h3>Oops, su carrito de TlacuBazar esta vacio.</h3>
-    <img src="../../../assets/images/tlacu-cart.png" alt="imagen de tlacu" width="60%">
-  </div>
-</div>
-
-
-<div class="row" *ngIf="user !== null && cartProducts > 0">
-  <div class="col-3">
-    <!--Confirmacion de monto por pagar-->
-    <div class="card text-center bg-light text-dark">
-      <div class="card-header">
-        <h4 class="card-title text-center cursor-arrow">Confirmar pedido</h4>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Monto total</h5>
-        <h6 class="card-subtitle mb-2 text-muted">$51.90</h6>
-        <button (click)="mostrarOrderDetails()">Confirmar compra</button>
+    <div class="row">
+      <div class="col-3">
+        <!--Confirmacion de monto por pagar-->
+        <div class="card text-center bg-light text-dark">
+          <div class="card-header">
+            <h4 class="card-title text-center cursor-arrow">Confirmar pedido</h4>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Monto total</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{tlacu.manager.cartTotalBuyPrice}}</h6>
+            <h5 class="card-title">Monto total</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{tlacu.manager.cartTotalBuyPrice}}</h6>
+            <button (click)="mostrarOrderDetails()">Confirmar compra</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<!--User logged in but No products in cart-->
+<div *ngIf="tlacu.manager.cartLength <= 0" class="row justify-content-md-center contenedor-cart">
+  <div class="col flex-column justify-content-center center-vertically">
+    <h3>Oops, su carrito de TlacuBazar esta vacio.</h3>
+    <img src="../../../assets/images/tlacu-cart.png" alt="imagen de tlacu" width="60%">
+  </div>
+</div>
+
+
+
