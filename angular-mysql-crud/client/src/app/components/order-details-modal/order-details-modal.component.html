@@ -1,0 +1,80 @@
+<div class="modal-header">
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row justify-content-md-center">
+    <div class="col-8">
+      <!--Direcciones de envio-->
+      <div class="card  bg-light text-dark">
+        <div class="card-header text-center">
+          <h4 class="card-title text-center cursor-arrow">Direcciones de envío</h4>
+        </div>
+        <div class="card-body">
+          <!-- Default unchecked -->
+          <div class="form-check">
+            <input type="radio" class="form-check-input" id="defaultUnchecked0" name="defaultExampleRadios" checked mdbInput>
+            <h5 class="card-title form-check-label" for="defaultChecked0">Ahuehuetitla 442-B</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Ahuehuetitla 442-B colonia Lomas de Cortes, Cuernavaca Morelos, México</h6>
+            <p></p>
+            <input type="radio" class="form-check-input" id="defaultChecked1" name="defaultExampleRadios" unchecked mdbInput>
+            <h5 class="card-title form-check-label" for="defaultChecked1">Cuauhtémoc 170-A</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Cuauhtemoc 170-A colonia Chapultepec, Cuernavaca Morelos, México</h6>
+            <p></p>
+            <input type="radio" class="form-check-input" id="defaultChecked2" name="defaultExampleRadios" unchecked mdbInput>
+            <h5 class="card-title form-check-label" for="defaultChecked2">Júpiter 233</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Júpiter 233 colonia Delicias, Cuernavaca Morelos, México</h6>
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <!--Confirmacion de monto por pagar-->
+      <div class="card text-center bg-light text-dark">
+        <div class="card-header">
+          <h4 class="card-title text-center cursor-arrow">Confirmar pedido</h4>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Monto total</h5>
+          <h6 class="card-subtitle mb-2 text-muted">$51.90</h6>
+          <button>Confirmar compra</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p></p>
+  <div class="row justify-content-md-center">
+    <div class="col-12">
+      <!--Productos seleccionados-->
+      <div class="card text-center bg-light text-dark">
+        <div class="card-header">
+          <h4 class="card-title text-center">Lista de productos</h4>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Precio total</th>
+              <th scope="col">Agregar</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="productSelect">Manzana roja</td>
+                <td>Fruta manzana roja</td>
+                <td>3</td>
+                <td>$10.50</td>
+                <td>+ -</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

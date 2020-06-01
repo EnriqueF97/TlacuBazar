@@ -22,3 +22,20 @@
     <img src="../../../assets/images/tlacu-cart.png" alt="imagen de tlacu" width="60%">
   </div>
 </div>
+
+
+<div class="row" *ngIf="user !== null && cartProducts > 0">
+  <div class="col-3">
+    <!--Confirmacion de monto por pagar-->
+    <div class="card text-center bg-light text-dark">
+      <div class="card-header">
+        <h4 class="card-title text-center cursor-arrow">Confirmar pedido</h4>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Monto total</h5>
+        <h6 class="card-subtitle mb-2 text-muted">$51.90</h6>
+        <button (click)="mostrarOrderDetails()">Confirmar compra</button>
+      </div>
+    </div>
+  </div>
+</div>

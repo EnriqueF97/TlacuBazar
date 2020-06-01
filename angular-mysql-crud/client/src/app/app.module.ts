@@ -34,6 +34,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ManageStoreComponent } from './components/manage-store/manage-store.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrderDetailsModalComponent } from './components/order-details-modal/order-details-modal.component';
 
 const config = new AuthServiceConfig([
   {
@@ -66,7 +67,8 @@ export function provideConfig() {
     ClientCourseComponent,
     VendorCourseComponent,
     ProfileComponent,
-    ManageStoreComponent
+    ManageStoreComponent,
+    OrderDetailsModalComponent
   ],
   imports: [
     BrowserModule,
