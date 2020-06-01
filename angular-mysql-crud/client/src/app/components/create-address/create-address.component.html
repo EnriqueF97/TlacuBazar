@@ -1,0 +1,188 @@
+<div class="modal-header">
+  <h4 class="modal-title"> Agregar dirección </h4>
+
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div
+    *ngIf="form.errors"
+    class="alert alert-danger">
+    Completa el formulario correctamente antes de enviar.
+  </div>
+  <div class="modal-body">
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <!-- Street input form. -->
+        <label for="street"> Dirección (calle y número) </label>
+        <input
+          formControlName="street"
+          id="street"
+          type="text"
+          class="form-control" />
+
+        <!-- Street validation error text. -->
+        <div
+          *ngIf="streetForm.touched && streetForm.invalid"
+          class="alert alert-danger">
+          <div *ngIf="streetForm.errors.required"> Debes escribir tu dirección (calle y número). </div>
+          <div *ngIf="streetForm.errors.minlength"> Me parece que esta dirección es muy corta. </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <!-- State select form. -->
+        <label for="state"> Estado </label>
+        <select
+          formControlName="state"
+          id="state"
+          class="form-control">
+          <option
+            *ngFor="let state of stateArray"
+            [value]="state.idStateEnum"
+            selected>
+            {{ state.state }}
+          </option>
+        </select>
+
+        <!-- State validation error text. -->
+        <div
+          *ngIf="stateForm.touched && stateForm.invalid"
+          class="alert alert-danger">
+          <div *ngIf="stateForm.errors.required"> Debes seleccionar un estado. </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <!-- City select form. -->
+        <label for="city"> Municipio o ciudad </label>
+        <select
+          formControlName="city"
+          id="city"
+          class="form-control">
+          <option
+            *ngFor="let city of cityArray"
+            [value]="city.idCityEnum">
+            {{ city.city }}
+          </option>
+        </select>
+
+        <!-- City validation error text. -->
+        <div
+          *ngIf="cityForm.touched && cityForm.invalid"
+          class="alert alert-danger">
+          <div *ngIf="cityForm.errors.required"> Debes seleccionar un municipio o ciudad. </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <!-- Suburb select form. -->
+        <label for="suburb"> Colonia </label>
+        <select
+          formControlName="suburb"
+          id="suburb"
+          class="form-control">
+          <option
+            *ngFor="let suburb of suburbArray"
+            [value]="suburb.idSuburbEnum">
+            {{ suburb.suburb }}
+          </option>
+        </select>
+
+        <!-- Suburb validation error text. -->
+        <div
+          *ngIf="suburbForm.touched && suburbForm.invalid"
+          class="alert alert-danger">
+          <div *ngIf="suburbForm.errors.required"> Debes seleccionar una colonia. </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <!-- Postal code input form. -->
+        <label for="postalCode"> Código postal </label>
+        <input
+          formControlName="postalCode"
+          id="postalCode"
+          type="text"
+          class="form-control"
+          [value]="postalCode"
+          disabled />
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button  type="submit" class="btn btn-outline-primary">
+      Registrar
+    </button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+      Cancelar
+    </button>
+  </div>
+</form>
+
+<!--
+<div class="modal-header">
+  <h4 class="modal-title">Agregar dirección</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="form">
+    <div class="form-group col-md-16">
+      <label for="inputState">Calle</label>
+      <input #calle type="text" class="form-control" id="">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Estado</label>
+        <select id="inputState" class="form-control" name="sel" (change)="selectedState = $event.target.value">
+          <option *ngFor="let state of stateArray" [value]="state.idStateEnum"  >
+            {{state.state}}
+          </option>
+        </select>      </div>
+      <div class="form-group col-md-6">
+        <label for="inputPassword4">Ciudad</label>
+        <select id="inputState" class="form-control" (change)="selectedCity = $event.target.value; cp= null; getSuburbs(selectedCity)">
+          <option *ngFor="let city of cityArray" [value]="city.idCityEnum"  >
+            {{city.city}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Colonia</label>
+        <select id="inputState" class="form-control"  (change)="selectedSuburb = $event.target.value; getCp() ">
+          <option *ngFor="let suburb of suburbArray" [value]="suburb.idSuburbEnum"  >
+            {{suburb.suburb}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputPassword4">Código</label>
+        <input type="text" class="form-control" value="{{cp}}" readonly>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button  type="button" class="btn btn-pink mb-3" (click)="createAddress(calle.value)">
+    Registrar
+  </button>
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+    Cancelar
+  </button>
+</div>
+-->

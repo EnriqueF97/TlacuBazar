@@ -16,7 +16,7 @@ export class NavigationComponent implements OnInit {
   cartProducts = 0;
   userAddresses: UserAddress[];
 
-  constructor(private authService: AuthService, private tlacu: TlacuServices, private router: Router) {
+  constructor(private authService: AuthService, public tlacu: TlacuServices, private router: Router) {
     this.user = this.tlacu.manager.user;
     this.socialUser = this.tlacu.manager.socialUser;
     if (this.user != null) {

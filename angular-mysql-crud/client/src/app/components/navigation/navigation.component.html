@@ -14,7 +14,8 @@
           <i class="material-icons text-black">shopping_cart</i>
         </div>
         <div class=" flex-row center-vertically justify-content-center"  [ngClass]="{'oval-inactive': active !== 1, 'oval-active': active ===1}">
-          <b>{{cartProducts}}</b>
+          <!-- <b>{{cartProducts}}</b> -->
+          <b>{{ tlacu.manager.cartLength }}</b>
         </div>
       </a>
     </li>

@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { TlacuServices } from '../../services/index';
-import { Store, Address, UserAddress, AddressEnum,
-         StateEnum, CityEnum, SuburbEnum } from 'src/app/models/index';
+import {
+  Store,
+  Address,
+  UserAddress,
+  AddressEnum,
+  StateEnum,
+  CityEnum,
+  SuburbEnum
+} from 'src/app/models/index';
 import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CreateAddressComponent } from '../create-address/create-address.component';
 
 /* angularx-social-login Componentes */
 import {
@@ -24,6 +32,7 @@ export class ProfileComponent implements OnInit {
   // icons
   faEdit = faEdit;
   faTrashAlt = faTrashAlt;
+
   // data
   user: User;
   socialUser: SocialUser;
@@ -39,8 +48,14 @@ export class ProfileComponent implements OnInit {
   suburbArray: SuburbEnum[];
   cp: number;
 
-  constructor(private authService: AuthService, private tlacu: TlacuServices,
-              private modalService: NgbModal, private config: NgbModalConfig) {
+  modalIsOpen: boolean = false;
+
+  constructor(
+    private authService: AuthService,
+    private tlacu: TlacuServices,
+    private modalService: NgbModal,
+    private config: NgbModalConfig,
+  ) {
     // init vars
     this.user = this.tlacu.manager.user;
     this.socialUser = this.tlacu.manager.socialUser;
@@ -197,41 +212,15 @@ export class ProfileComponent implements OnInit {
 
   editInfo() {}
 
-  createAddress(street: string) {
-    if (this.selectedCity != null && this.selectedSuburb != null) {
-      if (street.length > 0 && this.cp != null) {
-        // create addressEnum
-        const addEnum = new AddressEnum({address: street});
-        this.tlacu.adressEnum.createAddressEnum(addEnum).subscribe(res => {
-          if (res.success) {
-            console.log(res);
-            const idAddressEnum: number = res.createdAddressEnum.insertId;
-            console.log(idAddressEnum);
-            // create Address
-            const add = new Address({fkAddressEnum: idAddressEnum, fkStateEnum: this.selectedState,
-                                     fkCityEnum: this.selectedCity, fkSuburbEnum: this.selectedSuburb});
-            this.tlacu.address.createAddress(add).subscribe( res2 => {
-              console.log(res2);
-              if (res2.success) {
-                const idAddress: number = res2.createdAddress.insertId;
-                console.log(idAddress);
-                const uAdd = new UserAddress({fkUser: this.tlacu.manager.user.idUser, fkAddress: idAddress});
-                this.tlacu.userAddress.createUserAddress(uAdd).subscribe( res3 => {
-                  if (res3.success) {
-                    this.getUserAddresses();
-                    this.tlacu.manager.updateUserAddress.next(1);
-                    this.modalService.dismissAll();
-                  }
-                });
-              }
-            });
-          }
-        });
-      }
-    }
-  }
-
-  open(content) {
-    this.modalService.open(content);
+  openCreateAddressModal() {
+    /**
+     * Returns an NgbModalRef, which contains a promise in its
+     * .result attribute, which is solver when the NgbModalRef closes.
+     *
+     * Get all the new user addresses after closing.
+     */
+    this.modalService.open(CreateAddressComponent)
+    .result
+    .then(() => this.getUserAddresses);
   }
 }

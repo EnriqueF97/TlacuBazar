@@ -11,6 +11,7 @@ export * from './state-enum.service';
 export * from './store.service';
 export * from './store-review.service';
 export * from './suburb-enum.service';
+export * from './toast.service';
 export * from './user-address.service';
 export * from './user.service';
 export * from './manager.service';
@@ -30,6 +31,7 @@ import { ProductReviewService } from './product-review.service';
 import { StoreReviewService } from './store-review.service';
 import { StoreService } from './store.service';
 import { SuburbEnumService } from './suburb-enum.service';
+import { ToastService } from './toast.service';
 import { UserAddressService } from './user-address.service';
 import { CategoryEnumService } from './category-enum.service';
 import { UserService } from './user.service';
@@ -49,7 +51,7 @@ export class TlacuServices {
         public suburbEnum: SuburbEnumService,
         public userAddress: UserAddressService,
         public user: UserService,
-        public adressEnum: AddressEnumService,
+        public addressEnum: AddressEnumService,
         public cityEnum: CityEnumService,
         public deliveryMethod: DeliveryMethodService,
         public order: OrderService,
@@ -57,7 +59,8 @@ export class TlacuServices {
         public payment: PaymentService,
         public product: ProductService,
         public stateEnum: StateEnumService,
-        public categoryEnum: CategoryEnumService
+        public categoryEnum: CategoryEnumService,
+        public toastService: ToastService
     ) { }
 
 }
