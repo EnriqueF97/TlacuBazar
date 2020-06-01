@@ -34,6 +34,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ManageStoreComponent } from './components/manage-store/manage-store.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrderDetailsModalComponent } from './components/order-details-modal/order-details-modal.component';
 import { CreateAddressComponent } from './components/create-address/create-address.component';
 import { ToastsContainerComponent } from './components/toasts-container/toasts-container.component';
 
@@ -69,6 +70,7 @@ export function provideConfig() {
     VendorCourseComponent,
     ProfileComponent,
     ManageStoreComponent,
+    OrderDetailsModalComponent,
     CreateAddressComponent,
     ToastsContainerComponent
   ],

@@ -30,6 +30,14 @@ export class ManagerService {
     return length;
   }
 
+  get cartTotalBuyPrice(){
+    let totalBuyPrice = 0;
+    this.cart.forEach(p => {
+      totalBuyPrice += p.totalBuyPrice;
+    });
+    return totalBuyPrice;
+  }
+
   constructor() {
     this.cart = Array();
     this.getTokenItems();
