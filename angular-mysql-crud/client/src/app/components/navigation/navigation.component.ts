@@ -144,8 +144,7 @@ export class NavigationComponent implements OnInit {
   }
 
   setAddressEnum(address: Address) {
-    // console.log('set address enum');
-    this.tlacu.adressEnum.getAddressEnum(address.fkAddressEnum).subscribe( res => {
+    this.tlacu.addressEnum.getAddressEnum(address.fkAddressEnum).subscribe( res => {
       address.addressEnum = new AddressEnum(res.recordset[0]);
     }, err => {console.log(err); });
   }
