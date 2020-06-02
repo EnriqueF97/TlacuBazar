@@ -38,6 +38,8 @@ import { OrderDetailsModalComponent } from './components/order-details-modal/ord
 import { CreateAddressComponent } from './components/create-address/create-address.component';
 import { ToastsContainerComponent } from './components/toasts-container/toasts-container.component';
 import { CreateStoreComponent } from './components/create-store/create-store.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
 
 const config = new AuthServiceConfig([
   {
@@ -74,7 +76,9 @@ export function provideConfig() {
     OrderDetailsModalComponent,
     CreateAddressComponent,
     ToastsContainerComponent,
-    CreateStoreComponent
+    CreateStoreComponent,
+    EditProductComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,

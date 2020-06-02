@@ -36,36 +36,37 @@ class ProductService {
     }
     static createProduct(product) {
         return __awaiter(this, void 0, void 0, function* () {
-            let sql = "INSERT INTO product (name, descripcion, quantityStock, buyPrice, maxCacaoBuyPrice, fkStore, fkCategoryEnum) " +
-                "VALUES ('" + product.name + "', '" +
-                product.description + "', " +
-                product.quantityInStock + ", " +
-                product.buyPrice + ", " +
-                product.maxCacaoBuyPrice + ", " +
-                product.fkStore + ", " +
-                product.fkCategoryEnum + ");";
+            let sql = `INSERT INTO product 
+             (name, description, quantityInStock, buyPrice, maxCacaoBuyPrice, fkStore, fkCategoryEnum)  
+             VALUES ('${product.name}', 
+             '${product.description}', 
+             ${product.quantityInStock}, 
+             ${product.buyPrice}, 
+             ${product.maxCacaoBuyPrice}, 
+             ${product.fkStore}, 
+             ${product.fkCategoryEnum});`;
             const resultado = yield database_1.default.query(sql);
             return resultado;
         });
     }
     static updateProduct(idProduct, product) {
         return __awaiter(this, void 0, void 0, function* () {
-            let sql = "UPDATE product SET " +
-                "name = '" + product.name + "', " +
-                "description = " + product.description + ", " +
-                "quantityInStock = " + product.quantityInStock + ", " +
-                "buyPrice = " + product.buyPrice + ", " +
-                "maxCacaoBuyPrice = " + product.maxCacaoBuyPrice + ", " +
-                "fkStore = " + product.fkStore + ", " +
-                "fkStore = " + product.fkCategoryEnum + " " +
-                "WHERE idProduct = " + idProduct + ";";
+            let sql = `UPDATE product SET 
+             name = '${product.name}', 
+             description = '${product.description}', 
+             quantityInStock = ${product.quantityInStock}, 
+             buyPrice = ${product.buyPrice}, 
+             maxCacaoBuyPrice = ${product.maxCacaoBuyPrice}, 
+             fkStore = ${product.fkStore}, 
+             fkStore = ${product.fkCategoryEnum} 
+             WHERE idProduct = ${idProduct};`;
             const resultado = yield database_1.default.query(sql);
             return resultado;
         });
     }
     static deleteProduct(idProduct) {
         return __awaiter(this, void 0, void 0, function* () {
-            let sql = "DELETE FROM product WHERE idProduct = " + idProduct;
+            let sql = `DELETE FROM product WHERE idProduct = ${idProduct}`;
             const resultado = yield database_1.default.query(sql);
             return resultado;
         });

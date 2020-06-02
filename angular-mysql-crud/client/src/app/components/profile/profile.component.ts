@@ -225,8 +225,17 @@ export class ProfileComponent implements OnInit {
     .deleteUserAddress(userAddress.fkAddress, userAddress.fkUser)
     .subscribe(
       response => {
+        this.userAddresses = new Array();
         this.getUserAddresses();
         this.tlacu.manager.updateUserAddress.next(1);
+
+        this.tlacu.toastService.show(
+          'Se borró una dirección.',
+          {
+            classname: 'bg-info text-light',
+            delay: 5000
+          }
+        );
       },
       error => {
         console.error(error);
@@ -297,8 +306,17 @@ export class ProfileComponent implements OnInit {
     .result
     .then(() => {
       console.log('ProfileComponent: Address creation was completed, updating addresses.');
+      this.userAddresses = new Array();
       this.getUserAddresses();
       this.tlacu.manager.updateUserAddress.next(1);
+
+      this.tlacu.toastService.show(
+        'Se creó tu nueva dirección.',
+        {
+          classname: 'bg-success text-light',
+          delay: 5000
+        }
+      );
     });
   }
 }

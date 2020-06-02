@@ -1,0 +1,109 @@
+<div class="modal-header">
+  <h4> Editar producto </h4>
+
+  <button
+    (click)="activeModal.dismiss('Cross click')"
+    type="button"
+    class="close"
+    aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div
+    *ngIf="form.errors"
+    class="alert alert-danger">
+    Completa el formulario correctamente antes de enviar.
+  </div>
+
+  <div class="modal-body">
+    <div class="form-row">
+      <div class="form-group col-12">
+        <!-- Name input form. -->
+        <label for="name"> Nombre del producto </label>
+        <input
+          formControlName="name"
+          id="street"
+          type="text"
+          class="form-control" />
+
+        <!-- Name validation error text. -->
+        <div
+          *ngIf="nameForm.touched && nameForm.invalid"
+          class="alert alert-danger">
+          <div *ngIf="nameForm.errors.required"> Debes escribir un nombre para el producto. </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-12">
+        <!-- Description text area form. -->
+        <label for="description"> Descripción </label>
+        <textarea
+          formControlName="description"
+          id="description"
+          type="text"
+          class="form-control">
+        </textarea>
+
+        <!-- Description validation error text. -->
+        <div
+          *ngIf="descriptionForm.touched && descriptionForm.invalid"
+          class="alert alert-danger">
+          <div *ngIf="descriptionForm.errors.maxlength"> Esta descripción es demasiado larga. </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-6">
+        <!-- Quantity in stock input form. -->
+        <label for="quantityInStock"> Cantidad disponible </label>
+        <input
+          formControlName="quantityInStock"
+          id="quantityInStock"
+          type="number"
+          class="form-control" />
+
+          <!-- Quantity in stock validation error text. -->
+          <div
+            *ngIf="quantityInStockForm.touched && quantityInStockForm.invalid"
+            class="alert alert-danger">
+            <div *ngIf="quantityInStockForm.errors.required"> Debes especificar la cantidad de productos de este tipo disponible. </div>
+            <div *ngIf="quantityInStockForm.errors.min"> Debes tener por lo menos 1 producto disponible.</div>
+          </div>
+      </div>
+
+      <div class="form-group col-6">
+        <!-- Buy price input form. -->
+        <label for="buyPrice"> Precio de compra </label>
+        <input
+          formControlName="buyPrice"
+          id="buyPrice"
+          type="number"
+          class="form-control" />
+
+          <!-- Buy price validation error text. -->
+          <div
+            *ngIf="buyPriceForm.touched && buyPriceForm.invalid"
+            class="alert alert-danger">
+            <div *ngIf="buyPriceForm.errors.required"> Debes especificar un precio de compra. </div>
+            <div *ngIf="buyPriceForm.errors.pattern"> No puedes especificar precios negativos. </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-outline-primary">
+      Actualizar producto
+    </button>
+    <button
+      (click)="activeModal.close('Close click')"
+      type="button" class="btn btn-outline-dark">
+      Cancelar
+    </button>
+  </div>
+</form>
