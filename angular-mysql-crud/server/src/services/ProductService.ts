@@ -45,7 +45,7 @@ export class ProductService {
              buyPrice = ${product.buyPrice}, 
              maxCacaoBuyPrice = ${product.maxCacaoBuyPrice}, 
              fkStore = ${product.fkStore}, 
-             fkStore = ${product.fkCategoryEnum} 
+             fkCategoryEnum = ${product.fkCategoryEnum} 
              WHERE idProduct = ${idProduct};`;
         const resultado= await pool.query(sql);
         return resultado;

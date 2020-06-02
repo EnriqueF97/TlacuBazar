@@ -1,25 +1,29 @@
 <div class="modal-header">
   <h4 class="modal-title"> Agregar negocio </h4>
 
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 
 <form [formGroup]="form" (ngSubmit)="submit()">
   <div
-    *ngIf="form.errors"
-    class="alert alert-danger">
-    Completa el formulario correctamente antes de enviar.
+  *ngIf="form.errors"
+  class="alert alert-danger">
+  Completa el formulario correctamente antes de enviar.
   </div>
   <div class="modal-body">
     <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-12">
         <!--Nombre de negocio-->
-        <label for="storeName">Nombre del negocio</label>
+        <label for="name">Nombre del negocio</label>
         <input
-          formControlName="storeName"
-          id="storeName"
+          formControlName="name"
+          id="name"
           type="text"
           class="form-control" />
 
@@ -38,24 +42,7 @@
     </div>
 
     <div class="form-row">
-      <div class="form-group col-md-6">
-        <!-- Direcciones-->
-        <label for="direccion">Direccion</label>
-        <select
-          formControlName="direccion"
-          id="direccion"
-          class="form-control">
-          <option
-            *ngFor="let dir of addressArray"
-            [value]=""
-            selected>
-          </option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-12">
         <!-- Descripcion-->
         <label for="description">Descripción del negocio</label>
         <input
@@ -67,16 +54,14 @@
     </div>
 
     <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-12">
         <!--Tienda de servicio?-->
-        <div class="checkbox">
-          <label for="isService">
-            <input type="checkbox"
-              name="isService"
-              class="form-control">¿Es tienda de servicios?
-          </label>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="isServiceStore">
+          <label class="form-check-label" for="isServiceStore">¿Es tienda de servicio?</label>
         </div>
       </div>
     </div>
   </div>
 </form>
+

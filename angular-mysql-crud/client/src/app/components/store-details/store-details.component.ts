@@ -75,6 +75,9 @@ export class StoreDetailsComponent {
     const vendorRes = await this.tlacu.user.getUser(store.fkVendor).toPromise();
     store.vendor = new User(vendorRes.recordset);
     this.userOwnsStore = this.user.email === this.store.vendor.email;
+    console.log(this.userOwnsStore);
+    console.log(this.user.email);
+    console.log(this.store.vendor.email);
   }
 
   async setCategory(store: Store) {

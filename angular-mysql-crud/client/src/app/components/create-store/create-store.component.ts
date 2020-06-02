@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TlacuServices } from 'src/app/services/index';
 
 import {
   FormGroup,
@@ -17,10 +18,18 @@ export class CreateStoreComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    public activeModal: NgbActiveModal
-  ) { }
+    public activeModal: NgbActiveModal,
+    private tlacu: TlacuServices
+  ) {
+    this.form = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      description: new FormControl('', Validators.required),
+      isServiceStore: new FormControl('', Validators.required)
+    });
+  }
 
   ngOnInit(): void {
   }
 
+  submit() {}
 }

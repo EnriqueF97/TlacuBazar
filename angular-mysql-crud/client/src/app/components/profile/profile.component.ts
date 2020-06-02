@@ -96,7 +96,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {}
 
   async getStoresByUser() {
-    const storesRes = await this.tlacu.store.listStore(null, null, null, 2, null).toPromise();
+    const storesRes = await this.tlacu.store.listStore(null, null, null, this.tlacu.manager.user.idUser, null).toPromise();
     if (storesRes.length <= 0) { return; }
     const storesTemp: Store[] = Array();
     storesRes.recordset.forEach(store => {
@@ -292,7 +292,7 @@ export class ProfileComponent implements OnInit {
 
   /* create store modal */
   openCreateStore() {
-    this.modalService.open(CreateStoreComponent, {size: 'lg'});
+    this.modalService.open(CreateStoreComponent, {size: 'sm'});
   }
 
   /**

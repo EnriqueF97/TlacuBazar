@@ -58,7 +58,7 @@ class ProductService {
              buyPrice = ${product.buyPrice}, 
              maxCacaoBuyPrice = ${product.maxCacaoBuyPrice}, 
              fkStore = ${product.fkStore}, 
-             fkStore = ${product.fkCategoryEnum} 
+             fkCategoryEnum = ${product.fkCategoryEnum} 
              WHERE idProduct = ${idProduct};`;
             const resultado = yield database_1.default.query(sql);
             return resultado;

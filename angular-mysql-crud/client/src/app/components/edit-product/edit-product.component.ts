@@ -78,7 +78,8 @@ export class EditProductComponent {
       fkStore: this.product.fkStore,
       fkCategoryEnum: this.product.fkCategoryEnum
     });
-
+    console.log('updateProduct fkStore: ');
+    console.log(this.product.fkStore);
     this.tlacu.product.updateProduct(this.product.idProduct, product).subscribe(response => {
       let result = response;
 
