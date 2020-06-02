@@ -48,8 +48,6 @@ export class ProfileComponent implements OnInit {
   suburbArray: SuburbEnum[];
   cp: number;
 
-  modalIsOpen: boolean = false;
-
   constructor(
     private authService: AuthService,
     private tlacu: TlacuServices,
