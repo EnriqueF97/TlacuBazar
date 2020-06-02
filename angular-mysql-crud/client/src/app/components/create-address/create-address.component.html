@@ -1,7 +1,11 @@
 <div class="modal-header">
   <h4 class="modal-title"> Agregar dirección </h4>
 
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+  <button
+    (click)="activeModal.dismiss('Cross click')"
+    type="button"
+    class="close"
+    aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -12,6 +16,7 @@
     class="alert alert-danger">
     Completa el formulario correctamente antes de enviar.
   </div>
+
   <div class="modal-body">
     <div class="form-row">
       <div class="form-group col-md-12">
@@ -120,68 +125,11 @@
     <button  type="submit" class="btn btn-outline-primary">
       Registrar
     </button>
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+    <button
+      (click)="activeModal.close('Close click')"
+      type="button"
+      class="btn btn-outline-dark">
       Cancelar
     </button>
   </div>
 </form>
-
-<!--
-<div class="modal-header">
-  <h4 class="modal-title">Agregar dirección</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-
-<div class="modal-body">
-  <form [formGroup]="form">
-    <div class="form-group col-md-16">
-      <label for="inputState">Calle</label>
-      <input #calle type="text" class="form-control" id="">
-    </div>
-
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="inputEmail4">Estado</label>
-        <select id="inputState" class="form-control" name="sel" (change)="selectedState = $event.target.value">
-          <option *ngFor="let state of stateArray" [value]="state.idStateEnum"  >
-            {{state.state}}
-          </option>
-        </select>      </div>
-      <div class="form-group col-md-6">
-        <label for="inputPassword4">Ciudad</label>
-        <select id="inputState" class="form-control" (change)="selectedCity = $event.target.value; cp= null; getSuburbs(selectedCity)">
-          <option *ngFor="let city of cityArray" [value]="city.idCityEnum"  >
-            {{city.city}}
-          </option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="inputEmail4">Colonia</label>
-        <select id="inputState" class="form-control"  (change)="selectedSuburb = $event.target.value; getCp() ">
-          <option *ngFor="let suburb of suburbArray" [value]="suburb.idSuburbEnum"  >
-            {{suburb.suburb}}
-          </option>
-        </select>
-      </div>
-      <div class="form-group col-md-6">
-        <label for="inputPassword4">Código</label>
-        <input type="text" class="form-control" value="{{cp}}" readonly>
-      </div>
-    </div>
-  </form>
-</div>
-
-<div class="modal-footer">
-  <button  type="button" class="btn btn-pink mb-3" (click)="createAddress(calle.value)">
-    Registrar
-  </button>
-  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
-    Cancelar
-  </button>
-</div>
--->

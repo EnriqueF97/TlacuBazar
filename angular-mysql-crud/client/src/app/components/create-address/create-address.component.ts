@@ -1,6 +1,6 @@
+import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TlacuServices } from 'src/app/services/index';
-import { Component } from '@angular/core';
 
 import {
   Store,
@@ -89,13 +89,13 @@ export class CreateAddressComponent {
   }
 
   /**
-   * Get all states from database and stores them in the stateArray
+   * Get all states from database and store them in the stateArray
    * as StateEnum objects. Since only Morelos is in the database, only
    * store the first result in the recordset.
    */
   getStates() {
-    this.tlacu.stateEnum.listStateEnum().subscribe(res => {
-      this.stateArray.push(new StateEnum(res.recordset[0]));
+    this.tlacu.stateEnum.listStateEnum().subscribe(response => {
+      this.stateArray.push(new StateEnum(response.recordset[0]));
     });
   }
 
@@ -155,9 +155,7 @@ export class CreateAddressComponent {
    * database in order, satisfying table constraints.
    */
   submit() {
-    /* If this.form is valid, all form controls are storable in the database,
-      and if this.postalCode, is not null, then its value was validly set from
-      the database. */
+    /* If this.form is valid, all form controls are storable in the database */
     if (!this.form.valid) {
       this.form.setErrors({
         invalidForm: true
