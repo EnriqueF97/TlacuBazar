@@ -249,6 +249,9 @@ export class ProfileComponent implements OnInit {
       response => {
         if (response.success) {
           this.tlacu.toastService.show('Exito al borrar la tienda', {className: 'bg-success text-light', delay: 5000});
+
+          this.stores = new Array();
+          this.getStoresByUser();
         } else {
           this.tlacu.toastService.show('Error al cambiar el numero', {className: 'bg-danger text-light', delay: 5000});
         }
@@ -272,8 +275,8 @@ export class ProfileComponent implements OnInit {
       isVendor: tempUser.isVendor,
       phone: newPhone,
       cacaoBalance: tempUser.cacaoBalance,
-      readUserCourse: false,
-      readVendorCourse: false,
+      readUserCourse: 0,
+      readVendorCourse: 0,
       fkAddress: tempUser.fkAddress
     });
     this.tlacu.user.updateUser(user.idUser, user)
@@ -292,7 +295,22 @@ export class ProfileComponent implements OnInit {
 
   /* create store modal */
   openCreateStore() {
-    this.modalService.open(CreateStoreComponent, {size: 'sm'});
+    const modalRef = this.modalService.open(CreateStoreComponent, {size: 'sm'});
+
+    modalRef.result.then(() => {
+      this.tlacu.toastService.show(
+        'Se creó tu nueva tienda.',
+        {
+          classname: 'bg-success text-light',
+          delay: 5000
+        }
+      );
+
+      this.stores = new Array();
+      this.getStoresByUser();
+    });
+
+
   }
 
   /**

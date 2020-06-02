@@ -25,19 +25,19 @@ export class StoreService {
     }
 
     static async createStore(store: Store): Promise<any> {
-      let sql: string = "INSERT INTO store (name, description, phone, link, fkAddress, isServiceStore, acceptsCacao, fkStatusEnum, fkVendor, fkCategoryEnum) " + 
-                                "VALUES ('"+ store.name + "', '" + 
-                                            store.description +"', '" + 
-                                            store.phone +"', '" + 
-                                            store.link +"', '" + 
-                                            store.fkAddress +"', '" + 
-                                            store.isServiceStore + "', '" + 
-                                            store.acceptsCacao + "', '" + 
-                                            store.fkStatusEnum + "', '" + 
-                                            store.fkVendor + "', '" + 
-                                            store.fkCategoryEnum + "');"
+        console.log('ALSJDFALSDJFALSDFJASLDKFJASDF');
+      let sql: string = 
+        `INSERT INTO store (name, description, fkAddress, isServiceStore, acceptsCacao, fkStatusEnum, fkVendor, fkCategoryEnum)  
+         VALUES ('${store.name}', 
+         '${store.description}',
+         ${store.fkAddress},
+         ${store.isServiceStore},
+         ${store.acceptsCacao},
+         ${store.fkStatusEnum},
+         ${store.fkVendor},
+         ${store.fkCategoryEnum});`;
                                             
-        const resultado= await pool.query(sql);
+        const resultado = await pool.query(sql);
         console.log(resultado);
         return resultado;
     }

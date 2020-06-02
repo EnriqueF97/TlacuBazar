@@ -39,17 +39,16 @@ class StoreService {
     }
     static createStore(store) {
         return __awaiter(this, void 0, void 0, function* () {
-            let sql = "INSERT INTO store (name, description, phone, link, fkAddress, isServiceStore, acceptsCacao, fkStatusEnum, fkVendor, fkCategoryEnum) " +
-                "VALUES ('" + store.name + "', '" +
-                store.description + "', '" +
-                store.phone + "', '" +
-                store.link + "', '" +
-                store.fkAddress + "', '" +
-                store.isServiceStore + "', '" +
-                store.acceptsCacao + "', '" +
-                store.fkStatusEnum + "', '" +
-                store.fkVendor + "', '" +
-                store.fkCategoryEnum + "');";
+            console.log('ALSJDFALSDJFALSDFJASLDKFJASDF');
+            let sql = `INSERT INTO store (name, description, fkAddress, isServiceStore, acceptsCacao, fkStatusEnum, fkVendor, fkCategoryEnum)  
+         VALUES ('${store.name}', 
+         '${store.description}',
+         ${store.fkAddress},
+         ${store.isServiceStore},
+         ${store.acceptsCacao},
+         ${store.fkStatusEnum},
+         ${store.fkVendor},
+         ${store.fkCategoryEnum});`;
             const resultado = yield database_1.default.query(sql);
             console.log(resultado);
             return resultado;

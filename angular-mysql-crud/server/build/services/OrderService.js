@@ -31,7 +31,7 @@ class OrderService {
         return __awaiter(this, void 0, void 0, function* () {
             let sql = "SELECT * FROM Order WHERE ";
             sql += idOrder != null ? "idOrder = " + idOrder + " AND " : "";
-            sql += "1 = 1 ";
+            sql += "1 = 1;";
             const recordset = yield database_1.default.query(sql);
             return recordset;
         });

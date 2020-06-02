@@ -28,8 +28,8 @@ class StoreController {
     }
     static createStore(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            let user = req.body;
-            const _createdStore = yield services_1.StoreService.createStore(user);
+            let store = req.body;
+            const _createdStore = yield services_1.StoreService.createStore(store);
             let suc;
             if (_createdStore.affectedRows < 1) {
                 _createdStore.message = "fkVendor or fkAddress does not exists";

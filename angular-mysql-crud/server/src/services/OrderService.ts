@@ -18,7 +18,7 @@ export class OrderService {
     static async getOrder(idOrder:number): Promise<Order[]>  {
         let sql: string = "SELECT * FROM Order WHERE "
         sql += idOrder!=null ? "idOrder = " + idOrder + " AND " : "";
-        sql += "1 = 1 ";
+        sql += "1 = 1;";
         const recordset = await pool.query(sql);
         return recordset;
     }

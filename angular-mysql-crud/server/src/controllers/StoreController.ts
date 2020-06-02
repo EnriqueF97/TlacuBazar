@@ -19,8 +19,8 @@ export class StoreController {
     }
     
     static async createStore (req: Request, res: Response) {
-        let user: Store = req.body;    
-        const _createdStore=await StoreService.createStore(user);  
+        let store: Store = req.body;    
+        const _createdStore = await StoreService.createStore(store);  
         let suc;
         if (_createdStore.affectedRows < 1) {
             _createdStore.message = "fkVendor or fkAddress does not exists";
