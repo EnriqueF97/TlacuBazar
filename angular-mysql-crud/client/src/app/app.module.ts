@@ -37,6 +37,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrderDetailsModalComponent } from './components/order-details-modal/order-details-modal.component';
 import { CreateAddressComponent } from './components/create-address/create-address.component';
 import { ToastsContainerComponent } from './components/toasts-container/toasts-container.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
 
 const config = new AuthServiceConfig([
   {
@@ -72,7 +74,9 @@ export function provideConfig() {
     ManageStoreComponent,
     OrderDetailsModalComponent,
     CreateAddressComponent,
-    ToastsContainerComponent
+    ToastsContainerComponent,
+    EditProductComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
