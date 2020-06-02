@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService, SocialUser } from 'angularx-social-login';
 import {TlacuServices} from '../../services/index';
 import { User, _StatusEnum, Address, UserAddress, AddressEnum,

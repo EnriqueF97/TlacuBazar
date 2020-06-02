@@ -56,6 +56,7 @@ class UserController {
     static updateUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { idUser } = req.params;
+            console.log(req.params);
             let user = req.body;
             const _updateUser = yield UserService_1.UserService.updateUser(parseInt(idUser), user);
             let suc;

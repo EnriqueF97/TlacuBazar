@@ -43,6 +43,7 @@ export class UserController {
     
     static async updateUser(req: Request, res: Response): Promise<void>{
         const { idUser } = req.params;
+        console.log(req.params);
         let user: User = req.body;    
         const _updateUser=await UserService.updateUser(parseInt(idUser), user);  
         let suc;

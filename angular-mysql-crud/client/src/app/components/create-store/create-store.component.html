@@ -1,0 +1,82 @@
+<div class="modal-header">
+  <h4 class="modal-title"> Agregar negocio </h4>
+
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div
+    *ngIf="form.errors"
+    class="alert alert-danger">
+    Completa el formulario correctamente antes de enviar.
+  </div>
+  <div class="modal-body">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <!--Nombre de negocio-->
+        <label for="storeName">Nombre del negocio</label>
+        <input
+          formControlName="storeName"
+          id="storeName"
+          type="text"
+          class="form-control" />
+
+        <!--storeName validation error-->
+        <!--
+        <div
+          *ngIf="storeNameForm.touched && storeNameForm.invalid"
+          class="alert alert-danger">
+          <div *ngIf="storeNameForm.errors.required">
+            Debes escribir un nombre para tu negocio. </div>
+          <div *ngIf="storeNameForm.errors.minlength">
+            Este nombre es muy corto. </div>
+        </div>
+        -->
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <!-- Direcciones-->
+        <label for="direccion">Direccion</label>
+        <select
+          formControlName="direccion"
+          id="direccion"
+          class="form-control">
+          <option
+            *ngFor="let dir of addressArray"
+            [value]=""
+            selected>
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <!-- Descripcion-->
+        <label for="description">Descripción del negocio</label>
+        <input
+          formControlName="description"
+          id="description"
+          type="text"
+          class="form-control">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <!--Tienda de servicio?-->
+        <div class="checkbox">
+          <label for="isService">
+            <input type="checkbox"
+              name="isService"
+              class="form-control">¿Es tienda de servicios?
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

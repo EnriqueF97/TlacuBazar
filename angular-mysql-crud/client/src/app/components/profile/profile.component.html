@@ -26,24 +26,37 @@
       <div class="card-body">
         <h5 class="card-title">Teléfono:</h5>
         <h6
-          *ngIf="user.phone != null && user.phone != 'null'"
+          *ngIf="user.phone != null && user.phone != 'NULL'"
           class="card-subtitle mb-2 text-muted">
           {{ user.phone }}
         </h6>
-        <h6
-          *ngIf="user.phone == null || user.phone == 'null'"
-          class="card-subtitle mb-2 text-muted">
-          <a
-            (click)="addPhone(user)"
-            class="btn btn-light">
-            Añadir teléfono
-            <fa-icon [icon]="faEdit"></fa-icon>
-          </a>
-        </h6>
-
+        <button *ngIf="user.phone == null || user.phone == undefined || user.phone == 'NULL'"
+                  type="button" class="btn btn-light" (click)="isCollapsed = !isCollapsed"
+                  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+            Añadir teléfono <fa-icon [icon]="faEdit"></fa-icon>
+        </button>
+        <div id="collapseExample" class="m-2" [ngbCollapse]="isCollapsed">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <input type="number" #newPhone maxlength="10" minlength="10" name="phoneInput" id="phoneInput" class="form-control">
+              </div>
+              <div class="form-group">
+                <button
+                  (click)="addPhone(newPhone.value)"
+                  class="btn btn-light"
+                  type="submit">
+                  Listo
+                  <fa-icon [icon]="faPaperPlane"></fa-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--correo-->
         <h5 class="card-title">Correo:</h5>
-        <h6 class="card-subtitle mb-2 text-muted"> {{ user.email }} </h6>
-
+        <h6 class="card-subtitle mb-4 text-muted"> {{ user.email }} </h6>
+        <!--      Balance de Cacao
         <h5 class="card-title text-center"> Balance de cacao </h5>
         <h6
           *ngIf="user.cacaoBalance > 0"
@@ -55,10 +68,11 @@
           class="card-subtitle mb-2 text-muted">
           0.00
         </h6>
+        -->
 
         <h5
           *ngIf="user.isVendor"
-          class="card-subtitle mb-2 text-muted">
+          class="card-subtitle text-muted">
           Miembro vendedor
         </h5>
       </div>
@@ -128,7 +142,7 @@
         </div>
       </div>
       <div class="card-footer">
-        <a href="#" class="card-link">Añadir negocio</a>
+        <a (click)="openCreateStore()" class="card-link cursor-hand text-blue">Añadir negocio</a>
       </div>
     </div>
   </div>

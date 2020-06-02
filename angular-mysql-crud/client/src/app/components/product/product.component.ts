@@ -62,7 +62,7 @@ export class ProductComponent implements OnInit {
        //                             '',  })
      // this.tlacu.order.createOrder()
       // decidir alert
-      if (this.tlacu.manager.user.readUserCourse !== 1) {
+      if (this.tlacu.manager.user.readUserCourse !== true) {
         alert('Debe iniciar sesión en TlacuBazar para comprar');
       } else {
         alert('Su compra fue agregada a su carrito');

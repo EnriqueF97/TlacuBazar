@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TlacuServices } from '../../services/index';
+import { FormControl } from '@angular/forms';
+import {Router} from '@angular/router';
 import {
   Store,
   Address,
@@ -9,9 +11,10 @@ import {
   CityEnum,
   SuburbEnum
 } from 'src/app/models/index';
-import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import { faEdit, faTrashAlt, faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateAddressComponent } from '../create-address/create-address.component';
+import { CreateStoreComponent } from '../create-store/create-store.component';
 
 /* angularx-social-login Componentes */
 import {
@@ -21,6 +24,12 @@ import {
   GoogleLoginProvider
 } from 'angularx-social-login';
 import { User } from 'src/app/models/User';
+
+/* formulario-reactivo */
+import {
+  FormGroup,
+  Validators
+} from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -32,7 +41,10 @@ export class ProfileComponent implements OnInit {
   // icons
   faEdit = faEdit;
   faTrashAlt = faTrashAlt;
+  faPaperPlane = faPaperPlane;
 
+  // form
+  form: FormGroup;
   // data
   user: User;
   socialUser: SocialUser;
@@ -48,16 +60,21 @@ export class ProfileComponent implements OnInit {
   suburbArray: SuburbEnum[];
   cp: number;
 
+  // collapsable phone input
+  isCollapsed = true;
+
   modalIsOpen: boolean = false;
 
   constructor(
     private authService: AuthService,
     private tlacu: TlacuServices,
     private modalService: NgbModal,
-    private config: NgbModalConfig,
+    private router: Router
   ) {
     // init vars
     this.user = this.tlacu.manager.user;
+    console.log(this.user.phone);
+    console.log(typeof this.user.phone);
     this.socialUser = this.tlacu.manager.socialUser;
     this.stores = new Array();
     this.userAddresses = new Array();
@@ -191,15 +208,6 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  /* -------------- BUTTONS ------------------ */
-  public editStore(idStore: number) {
-    console.log('Editando tienda ' + idStore);
-  }
-
-  public deleteStore(idStore: number) {
-    console.log('Eliminando tienda ' + idStore);
-  }
-
   /**
    * Deletes an user address and tries to update the view list
    * containing them.
@@ -226,7 +234,57 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  addPhone(user: User) { }
+  /* -------------- BUTTONS ------------------ */
+  deleteStore(idStore: number) {
+    this.tlacu.store.deleteStore(idStore).subscribe(
+      response => {
+        if (response.success) {
+          this.tlacu.toastService.show('Exito al borrar la tienda', {className: 'bg-success text-light', delay: 5000});
+        } else {
+          this.tlacu.toastService.show('Error al cambiar el numero', {className: 'bg-danger text-light', delay: 5000});
+        }
+      }
+    );
+  }
+
+  editStore(idStore: number) {
+    this.router.navigate([`/store/${idStore}`]);
+  }
+
+  addPhone(newPhone: string) {
+
+    console.log('newPhone: ' + newPhone);
+    let tempUser = this.tlacu.manager.user;
+    const user: User = new User({
+      firstName: tempUser.firstName,
+      lastName: tempUser.lastName,
+      idUser: tempUser.idUser,
+      email: tempUser.email,
+      isVendor: tempUser.isVendor,
+      phone: newPhone,
+      cacaoBalance: tempUser.cacaoBalance,
+      readUserCourse: false,
+      readVendorCourse: false,
+      fkAddress: tempUser.fkAddress
+    });
+    this.tlacu.user.updateUser(user.idUser, user)
+    .subscribe(
+      response => {
+        if (response.success) {
+          this.tlacu.manager.user = user;
+          this.tlacu.manager.setItems(this.socialUser, user);
+          this.tlacu.toastService.show('Exito al cambiar el numero', {className: 'bg-success text-light', delay: 5000});
+        } else {
+          this.tlacu.toastService.show('Error al cambiar el numero', {className: 'bg-danger text-light', delay: 5000});
+        }
+      }
+    )
+  }
+
+  /* create store modal */
+  openCreateStore() {
+    this.modalService.open(CreateStoreComponent, {size: 'lg'});
+  }
 
   /**
    * Returns an NgbModalRef, which contains a promise in its
